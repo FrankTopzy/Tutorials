@@ -4,19 +4,20 @@ async function getUser() {
 
     if (!response.ok) {
       throw new Error ('request failed');
-      return;
     }
 
     const data = await response.json();
-    console.log(data);
 
     return data;
 
   } catch (error) {
 
-    console.log(error);
+    console.error(error);
+    throw error;
 
   }
 }
 
-getUser();
+getUser().then(user => {
+  console.log(user);
+});
