@@ -54,26 +54,32 @@ function addProducts(newProducts: Product[]) {
   if (newProducts.some(product => products.some(existingProduct => existingProduct.id === product.id))) {
     throw new Error("Duplicate product id found");
   }
-  products.push(...newProducts);
+
+   const newProductsArr = [...products, ...newProducts];
+  return newProductsArr;
 }
 
-function removeProductById(id: number) {
+/*function removeProductById(id: number) {
   const index = products.findIndex(product => product.id === id);
   if (index !== -1) {
     products.splice(index, 1);
   }
-}
+}*/
 
 function deleteProduct (id: number) {
   return products.filter(product => product.id !== id)
 }
 
 function updateProduct(id: number, updatedProduct: Partial<Product>) {
-  const product = products.find(product => product.id === id);
+  /*const product = products.find(product => product.id === id);
   if (!product) {
     throw new Error("Product not found");
   }
-  Object.assign(product, updatedProduct);
+  Object.assign(product, updatedProduct);*/
+
+  return products.map(product => {
+    return product.id === id ? {...product, ...updatedProduct} : product
+  })
 }
 
 function searchProductsByName(name: string) {
@@ -81,5 +87,5 @@ function searchProductsByName(name: string) {
 }
 
 function getLowStockProducts() {
-  return products.filter(product => product.stock < 5);
+  return products.filter(product => product.stock <= 3);
 }
