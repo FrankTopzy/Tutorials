@@ -39,6 +39,12 @@ const state = {
 async function searchUser(username) {
   state.user = null;
   state.error = null;
+
+  if (!username.trim()) {
+    state.error = "Please enter a username";
+    return;
+  }
+
   state.loading = true;
 
   try {
@@ -52,5 +58,3 @@ async function searchUser(username) {
 
   console.log(state);
 }
-
-searchUser('')
