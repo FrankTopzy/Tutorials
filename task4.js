@@ -3,7 +3,7 @@ async function createPost() {
     {
       method: 'POST',
       headers: {
-        "Content-type" : "application/json"
+        "Content-Type" : "application/json"
       },
       body: JSON.stringify({
         title: "Learning APIs",
