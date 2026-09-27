@@ -17,7 +17,9 @@ async function createPost() {
     throw new Error('Failed Request')
   }
 
-  return response;
+  const post = await response.json();
+
+  return post;
 }
 
 createPost().then((post) => {
