@@ -59,6 +59,7 @@ function addProducts(newProducts: Product[]) {
   return newProductsArr;
 }
 
+
 /*function removeProductById(id: number) {
   const index = products.findIndex(product => product.id === id);
   if (index !== -1) {
