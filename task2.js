@@ -18,6 +18,7 @@ async function getUser() {
   }
 }
 
+
 getUser().then(user => {
   console.log(user);
 });
