@@ -6,14 +6,17 @@ async function getGithubUser(username) {
 
     if (!response.ok) {
       console.log("status:", response.status);
+
       console.log(
         "remaining:",
         response.headers.get("x-ratelimit-remaining")
       );
+
       console.log(
         "reset:",
         response.headers.get("x-ratelimit-reset")
       );
+      
       throw new Error(`Request failed: ${response.status}`);
     }
 
