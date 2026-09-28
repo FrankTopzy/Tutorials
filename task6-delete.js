@@ -5,9 +5,11 @@ async function deletePost(id) {
     }
   );
 
-  const post = await response.json();
+  if (!response.ok) {
+    throw new Error(`Delete failed: ${response.status}`);
+  }
 
-  return post;
+  return "Post deleted successfully";
 }
 
 deletePost(1).then((post) => {
