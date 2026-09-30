@@ -55,7 +55,7 @@ function getProductById(id: number): Productt | undefined {
 console.log(getProductById(3));
 
 function getProductsByCategory(category: string): Productt[] {
-  const foundProducts = productts.filter(product => product.category !== category);
+  const foundProducts = productts.filter(product => product.category === category);
 
   if(!foundProducts) {
     console.log("No product match");
@@ -66,3 +66,17 @@ function getProductsByCategory(category: string): Productt[] {
 }
 
 console.log(getProductsByCategory('shoes'));
+
+function getTotalInventoryValue(): number {
+  const totalSum = productts.reduce((sum, product) =>  sum + (product.price * product.stock), 0)
+
+  return totalSum;
+}
+
+function getLowStockProducts(): Productt[] {
+  return productts.filter(product => product.stock <= 3)
+}
+
+function productSearch(name: string): Productt[] {
+  return productts.filter(product => product.name.toLowerCase().trim().includes(name.toLowerCase()));
+}

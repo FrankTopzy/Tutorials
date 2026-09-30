@@ -41,10 +41,20 @@ function getProductById(id) {
 }
 console.log(getProductById(3));
 function getProductsByCategory(category) {
-    const foundProducts = productts.filter(product => product.category !== category);
+    const foundProducts = productts.filter(product => product.category === category);
     if (!foundProducts) {
         console.log("No product match");
     }
     return foundProducts;
 }
 console.log(getProductsByCategory('shoes'));
+function getTotalInventoryValue() {
+    const totalSum = productts.reduce((sum, product) => sum + (product.price * product.stock), 0);
+    return totalSum;
+}
+function getLowStockProducts() {
+    return productts.filter(product => product.stock <= 3);
+}
+function productSearch(name) {
+    return productts.filter(product => product.name.toLowerCase().trim().includes(name.toLowerCase()));
+}
