@@ -40,3 +40,11 @@ function getProductById(id) {
     return foundProduct;
 }
 console.log(getProductById(3));
+function getProductsByCategory(category) {
+    const foundProducts = productts.filter(product => product.category !== category);
+    if (!foundProducts) {
+        console.log("No product match");
+    }
+    return foundProducts;
+}
+console.log(getProductsByCategory('shoes'));
