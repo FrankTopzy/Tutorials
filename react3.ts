@@ -52,6 +52,11 @@ const App = () => {
   const lowStockCount = products.filter(
     product => product.stock <= 3
   ).length;
+
+  const totalInventoryValue = products.reduce(
+    (sum, product) => sum + product.price * product.stock,
+    0
+  );
   
 
   return (
