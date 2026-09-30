@@ -67,7 +67,6 @@ const App = () => {
   });
   
 
-  
   return (
     <div>
       <p>Total Inventory Value: ₦{totalInventoryValue}</p>
