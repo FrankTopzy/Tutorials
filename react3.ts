@@ -48,6 +48,10 @@ const App = () => {
   const [products, setProducts] = useState<Productt[]>(productts);
   const [category, setCategory] = useState<Category | "all">("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const lowStockCount = products.filter(
+    product => product.stock <= 3
+  ).length;
   
 
   return (
