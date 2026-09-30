@@ -57,6 +57,14 @@ const App = () => {
     (sum, product) => sum + product.price * product.stock,
     0
   );
+
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = category === "all" || product.category === category;
+  
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.trim().toLowerCase());
+  
+    return matchesCategory && matchesSearch;
+  });
   
 
   return (
