@@ -43,7 +43,7 @@ const productts: Productt[] = [
 ]
 
 function getProductById(id: number): Productt | undefined {
-  const foundProduct = productts.find(product => id --- product.id);
+  const foundProduct = productts.find(product => id === product.id);
 
   if (!foundProduct) {
     console.log("item");
@@ -54,10 +54,10 @@ function getProductById(id: number): Productt | undefined {
 
 console.log(getProductById(3));
 
-function getProductsByCategory(category: string): Productt[] {
+function getProductsByCategory(category: Category): Productt[] {
   const foundProducts = productts.filter(product => product.category === category);
 
-  if(!foundProducts) {
+  if(foundProducts.length === 0) {
     console.log("No product match");
     
   }

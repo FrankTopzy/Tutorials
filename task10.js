@@ -33,7 +33,7 @@ const productts = [
     }
 ];
 function getProductById(id) {
-    const foundProduct = productts.find(product => id-- - product.id);
+    const foundProduct = productts.find(product => id === product.id);
     if (!foundProduct) {
         console.log("item");
     }
@@ -42,7 +42,7 @@ function getProductById(id) {
 console.log(getProductById(3));
 function getProductsByCategory(category) {
     const foundProducts = productts.filter(product => product.category === category);
-    if (!foundProducts) {
+    if (foundProducts.length === 0) {
         console.log("No product match");
     }
     return foundProducts;
