@@ -15,12 +15,13 @@ type DashboardStatsProps = {
   totalInventoryValue: number;
   lowStockCount: number;
   products: Product[];
+  onAddStock: (id: number) => void
 };
 
 
-function Dashboard({ totalInventoryValue, lowStockCount, products }: DashboardStatsProps) {
+function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock }: DashboardStatsProps) {
   const [category, setCategory] = useState<Category | "all">("all");
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
 
 
   const filteredProducts = products.filter(product => {
