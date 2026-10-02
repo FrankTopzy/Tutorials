@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import Dashboard from './task4/Dashboard';
 
 type Category = "shoes" | "electronics" | "clothing";
@@ -46,6 +47,8 @@ const products: Product[] = [
 ]
 
 function App() {
+  const [productList, setProductList] = useState<Product[]>(products);
+
   const lowStockCount = products.filter(
     product => product.stock <= 3
   ).length;
@@ -54,6 +57,19 @@ function App() {
     (sum, product) => sum + product.price * product.stock,
     0
   );
+
+  function addStock(id: number) {
+    productList.forEach(product => {
+      if (product.id === id) {
+        product.stock += 1;
+      }
+    });
+    setProductList([...productList]);
+
+    products.map(product => {
+      
+    })
+  }
 
 
   return (

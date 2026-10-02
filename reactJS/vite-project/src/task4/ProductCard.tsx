@@ -1,6 +1,7 @@
 type Category = "shoes" | "electronics" | "clothing";
 
 type Product = {
+  id: number;
   name: string;
   category: Category;
   price: number;
@@ -8,15 +9,20 @@ type Product = {
 };
 type ProductCardProps = {
   product: Product;
+  onAddStock: (id: number) => void;
 };
 
-function ProductCard({ product }: ProductCardProps) {
+function ProductCard({ product, onAddStock }: ProductCardProps) {
   return (
     <div>
       <h3>{product.name}</h3>
       <p>Category: {product.category}</p>
       <p>Price: ₦{product.price}</p>
       <p>Stock: {product.stock}</p>
+
+      <button onClick={() => onAddStock(product.id)}>
+        Add Stock
+      </button>
     </div>
   );
 }

@@ -58,6 +58,7 @@ function Dashboard({ totalInventoryValue, lowStockCount, products }: DashboardSt
             <ProductCard
               key={product.id}
               product={product}
+              onAddStock={onAddStock}
             />
           )
         })
