@@ -1,5 +1,5 @@
 
-import Dashboard from './Dashboard';
+import Dashboard from './task4/Dashboard';
 
 type Category = "shoes" | "electronics" | "clothing";
 
