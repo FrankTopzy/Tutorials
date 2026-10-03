@@ -66,10 +66,19 @@ function App() {
     )
   }
 
+  const removeStock = (id: number) => {
+    setProductList(productList =>
+      productList.map(product => {
+        return ( product.stock > 1 && product.id === id ? {...product, stock: product.stock - 1} : product)
+      }
+      )
+    )
+  }
+
 
   return (
     <>
-      <Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock}/>
+      <Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock} onRemoveStock={removeStock}/>
     </>
   )
 }

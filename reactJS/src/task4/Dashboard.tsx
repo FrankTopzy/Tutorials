@@ -16,10 +16,11 @@ type DashboardStatsProps = {
   lowStockCount: number;
   products: Product[];
   onAddStock: (id: number) => void
+  onRemoveStock: (id: number) => void
 };
 
 
-function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock }: DashboardStatsProps) {
+function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock, onRemoveStock }: DashboardStatsProps) {
   const [category, setCategory] = useState<Category | "all">("all");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -60,6 +61,7 @@ function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock }:
               key={product.id}
               product={product}
               onAddStock={onAddStock}
+              onRemoveStock={onRemoveStock}
             />
           )
         })

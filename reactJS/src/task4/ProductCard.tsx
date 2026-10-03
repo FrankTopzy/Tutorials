@@ -10,9 +10,10 @@ type Product = {
 type ProductCardProps = {
   product: Product;
   onAddStock: (id: number) => void;
+  onRemoveStock: (id: number) => void;
 };
 
-function ProductCard({ product, onAddStock }: ProductCardProps) {
+function ProductCard({ product, onAddStock, onRemoveStock }: ProductCardProps) {
   return (
     <div>
       <h3>{product.name}</h3>
@@ -20,9 +21,8 @@ function ProductCard({ product, onAddStock }: ProductCardProps) {
       <p>Price: ₦{product.price}</p>
       <p>Stock: {product.stock}</p>
 
-      <button onClick={() => onAddStock(product.id)}>
-        Add Stock
-      </button>
+      <button onClick={() => onAddStock(product.id)}>Add Stock</button>
+      <button onClick={() => onRemoveStock(product.id)}>Remove Stock</button>
     </div>
   );
 }
