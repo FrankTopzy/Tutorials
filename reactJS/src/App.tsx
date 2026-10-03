@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import Dashboard from './task4/Dashboard';
+import ApiData from './task5/ApiData';
 
 type Category = "shoes" | "electronics" | "clothing";
 
@@ -78,7 +79,8 @@ function App() {
 
   return (
     <>
-      <Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock} onRemoveStock={removeStock} setProductList={setProductList}/>
+      {/*<Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock} onRemoveStock={removeStock} setProductList={setProductList}/>*/}
+      <ApiData/>
     </>
   )
 }
