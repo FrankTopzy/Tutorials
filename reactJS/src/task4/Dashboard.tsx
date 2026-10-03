@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,  type FormEvent} from 'react'
 import ProductCard from './ProductCard';
 import type { Category, Product } from '../type';
 
@@ -20,6 +20,7 @@ function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock, o
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
   const [newCategory, setNewCategory] = useState<Category>("shoes");
+  const [error, setError] = useState<string | null>(null)
 
 
   const filteredProducts = products.filter(product => {
@@ -30,25 +31,49 @@ function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock, o
     return matchesCategory && matchesSearch;
   });
 
-  const addNewProduct = (e: React.FormEvent<HTMLFormElement>) => {
+  const addNewProduct = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!name || !price || !stock || !newCategory) {
-      throw new Error("All products must have id, name, category, price, and stock properties");
+    if (!name.trim()) {
+      setError("Please enter a product name");
+      return;
     }
 
-    const newId = Math.max(...products.map(product => product.id)) + 1;
+    const numericPrice = Number(price);
+    const numericStock = Number(stock);
+
+    if (Number.isNaN(numericPrice) || numericPrice <= 0) {
+      setError("Price must be a valid number greater than 0");
+      return;
+    }
+
+    if (Number.isNaN(numericStock) || numericStock <= 0) {
+      setError("Stock must be a valid number greater than 0");
+      return;
+    }
+
+    const newId =
+      Math.max(...products.map(product => product.id)) + 1;
 
     const newProduct: Product = {
       id: newId,
-      name,
+      name: name.trim(),
       category: newCategory,
-      price: Number(price),
-      stock: Number(stock)
-    }
+      price: numericPrice,
+      stock: numericStock
+    };
 
-    setProductList(currentProduct => [...currentProduct, newProduct]);
-  }
+    setProductList(currentProducts => [
+      ...currentProducts,
+      newProduct
+    ]);
+
+    setName("");
+    setPrice("");
+    setStock("");
+    setNewCategory("shoes");
+    setError(null);
+  };
   
   return (
     <div>
@@ -91,6 +116,7 @@ function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock, o
         </div>
 
         <div>
+          {error && <p>{error}</p>}
           <form action="" style={{
             display: 'flex',
             flexDirection: 'column',
@@ -99,7 +125,13 @@ function Dashboard({ totalInventoryValue, lowStockCount, products, onAddStock, o
             <input type="text" placeholder='Enter product name' value={name} onChange={(e) => setName(e.target.value)}/>
             <input type="text" placeholder='Enter product price' value={price} onChange={(e) => setPrice(e.target.value)}/>
             <input type="text" placeholder='Enter no. of stock' value={stock} onChange={(e) => setStock(e.target.value)}/>
-            <input type="text" placeholder='Fill in the category' value={newCategory} onChange={(e) => setNewCategory(e.target.value as Category)}/>
+            <select
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value as Category)}>
+                <option value="shoes">shoes</option>
+                <option value="electronics">electronics</option>
+                <option value="clothing">clothing</option>
+            </select>
 
             <button type='submit'>ADD</button>
           </form>
