@@ -78,7 +78,7 @@ function App() {
 
   return (
     <>
-      <Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock} onRemoveStock={removeStock}/>
+      <Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock} onRemoveStock={removeStock} setProductList={setProductList}/>
     </>
   )
 }
