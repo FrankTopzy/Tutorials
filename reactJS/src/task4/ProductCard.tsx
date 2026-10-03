@@ -21,8 +21,8 @@ function ProductCard({ product, onAddStock, onRemoveStock }: ProductCardProps) {
       <p>Price: ₦{product.price}</p>
       <p>Stock: {product.stock}</p>
 
-      <button onClick={() => onAddStock(product.id)}>Add Stock</button>
-      <button onClick={() => onRemoveStock(product.id)}>Remove Stock</button>
+      <button onClick={() => onAddStock(product.id)}>Increase Stock</button>
+      <button onClick={() => onRemoveStock(product.id)}>Decrease Stock</button>
     </div>
   );
 }
