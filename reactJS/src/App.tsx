@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Dashboard from './task4/Dashboard';
 
 type Category = "shoes" | "electronics" | "clothing";
