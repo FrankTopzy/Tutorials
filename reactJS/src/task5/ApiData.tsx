@@ -6,7 +6,7 @@ type User = {
   email: string;
 };
 
-async function getUser(){
+async function getUser(): Promise<User> {
   const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
 
   if (!response.ok) {
@@ -22,16 +22,21 @@ async function getUser(){
 function ApiData() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+
     getUser().then((user) => {
       setUser(user);
-    }).catch(error => setError(error.message))
+      setLoading(false)
+    }).catch(error => {setError(error.message); setLoading(false)})
   }, [])
 
   return (
     <div>
       {error && <p>{error}</p>}
+      {loading && <p>Loading...</p>}
 
       {user && (
         <div>
