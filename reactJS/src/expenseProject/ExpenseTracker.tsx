@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState, type FormEvent } from "react";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 
@@ -53,7 +53,7 @@ function ExpenseTracker() {
     return expenses.length;
   }, [expenses]);
 
-  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (title.trim() === "" || amount.trim() === "") {
@@ -83,13 +83,13 @@ function ExpenseTracker() {
     setTitle("");
     setAmount("");
     setCategory("food");
-  };
+  }, [title, amount, category])
 
-  function deleteExpense(id: number) {
+  const deleteExpense = useCallback((id: number) => {
     setExpenses(currentExpenses =>
       currentExpenses.filter(expense => expense.id !== id)
     );
-  }
+  }, [])
 
   return (
     <div>
@@ -102,7 +102,7 @@ function ExpenseTracker() {
         category={category}
         setCategory={setCategory}
       />
-      <p>Total Expenses:# {totalExpenses}</p>
+      <p>Total Expenses: {totalExpenses}</p>
       <p>Number of expenses: {expenseCount}</p>
       <ExpenseList expenses={expenses} onDeleteExpense={deleteExpense}/>
     </div>
