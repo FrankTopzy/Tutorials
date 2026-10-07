@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type FormEvent } from "react";
+import { useCallback, useMemo, useReducer, useState, type FormEvent } from "react";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 
@@ -7,6 +7,42 @@ export type ExpenseCategory =
   | "transport"
   | "shopping"
   | "bills";
+
+
+type Action =
+  | {
+      type: "ADD_EXPENSE";
+      payload: Expense;
+    }
+  | {
+      type: "DELETE_EXPENSE";
+      payload: number;
+    };
+
+type State = {
+  expenses: Expense[];
+};
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "ADD_EXPENSE":
+      return {
+        ...state,
+        expenses: [...state.expenses, action.payload]
+      };
+
+    case "DELETE_EXPENSE":
+      return {
+        ...state,
+        expenses: state.expenses.filter(
+          expense => expense.id !== action.payload
+        )
+      };
+
+    default:
+      return state;
+  }
+}
 
 export type Expense = {
   id: number;
@@ -37,21 +73,23 @@ const initialExpenses: Expense[] = [
 ];
 
 function ExpenseTracker() {
-  const [expenses, setExpenses] = useState<Expense[]>(initialExpenses);
+  //const [expenses, setExpenses] = useState<Expense[]>(initialExpenses);
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState<ExpenseCategory>("food");
 
+  const [state, dispatch] = useReducer(reducer, { expenses: initialExpenses });
+
   const totalExpenses = useMemo(() => {
-    return expenses.reduce(
+    return state.expenses.reduce(
       (sum, expense) => sum + expense.amount,
       0
     );
-  }, [expenses]);
+  }, [state.expenses]);
 
   const expenseCount = useMemo(() => {
-    return expenses.length;
-  }, [expenses]);
+    return state.expenses.length;
+  }, [state.expenses]);
 
   const onSubmitHandler = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -75,21 +113,21 @@ function ExpenseTracker() {
       category
     };
 
-    setExpenses(currentExpenses => [
-      ...currentExpenses,
-      newExpense
-    ]);
-
+    dispatch({
+      type: "ADD_EXPENSE",
+      payload: newExpense
+    });
     setTitle("");
     setAmount("");
     setCategory("food");
   }, [title, amount, category])
 
   const deleteExpense = useCallback((id: number) => {
-    setExpenses(currentExpenses =>
-      currentExpenses.filter(expense => expense.id !== id)
-    );
-  }, [])
+    dispatch({
+      type: "DELETE_EXPENSE",
+      payload: id
+    });
+  }, []);
 
   return (
     <div>
@@ -104,7 +142,7 @@ function ExpenseTracker() {
       />
       <p>Total Expenses: {totalExpenses}</p>
       <p>Number of expenses: {expenseCount}</p>
-      <ExpenseList expenses={expenses} onDeleteExpense={deleteExpense}/>
+      <ExpenseList expenses={state.expenses} onDeleteExpense={deleteExpense}/>
     </div>
   )
 }
