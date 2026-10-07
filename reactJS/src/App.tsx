@@ -4,6 +4,7 @@ import Dashboard from './task4/Dashboard';
 import ApiData from './task5/ApiData';
 import ProductCard from './task6/ProductCard';
 import ExpenseTracker from './expenseProject/ExpenseTracker';
+import Test from './useReducerr/Test';
 
 type Category = "shoes" | "electronics" | "clothing";
 
@@ -86,7 +87,7 @@ function App() {
 
       <ProductCard/> */}
 
-      <ExpenseTracker/>
+      <Test/>
     </>
   )
 }
