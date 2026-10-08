@@ -5,6 +5,7 @@ import ApiData from './task5/ApiData';
 import ProductCard from './task6/ProductCard';
 import ExpenseTracker from './expenseProject/ExpenseTracker';
 import Test from './useReducerr/Test';
+import { Parent } from './task9/Parent';
 
 type Category = "shoes" | "electronics" | "clothing";
 
@@ -85,9 +86,11 @@ function App() {
       {/*<Dashboard totalInventoryValue={totalInventoryValue} lowStockCount={lowStockCount} products={productList} onAddStock={addStock} onRemoveStock={removeStock} setProductList={setProductList}/>
       <ApiData/>
 
-      <ProductCard/> */}
+      <ProductCard/> 
 
-      <Test/>
+      <Test/>*/}
+
+      <Parent/>
     </>
   )
 }
