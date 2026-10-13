@@ -60,6 +60,16 @@ function addProducts(newProducts: Product[]) {
 }
 
 
+
+console.log(addProducts([{
+    id: 40,
+    name: "Hoodie",
+    category: "clothing",
+    price: 50000,
+    stock: 10
+  }]));
+
+
 /*function removeProductById(id: number) {
   const index = products.findIndex(product => product.id === id);
   if (index !== -1) {
@@ -72,16 +82,24 @@ function deleteProduct (id: number) {
 }
 
 function updateProduct(id: number, updatedProduct: Partial<Product>) {
-  /*const product = products.find(product => product.id === id);
+  const product = products.find(product => product.id === id);
   if (!product) {
     throw new Error("Product not found");
   }
-  Object.assign(product, updatedProduct);*/
+  /*Object.assign(product, updatedProduct);*/
 
   return products.map(product => {
     return product.id === id ? {...product, ...updatedProduct} : product
   })
 }
+
+console.log(updateProduct(40, {
+    name: "Hoie",
+    category: "clothing",
+    price: 50000,
+    stock: 10
+}));
+
 
 function searchProductsByName(name: string) {
   return products.filter(product => product.name.toLowerCase().includes(name.toLowerCase()));
