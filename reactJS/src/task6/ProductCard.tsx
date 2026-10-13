@@ -2,8 +2,6 @@ import { useTheme } from "../task7/useTheme";
 
 function ProductCard() {
   const { mode, setMode } = useTheme();
-
-
   
   return (
     <div>
