@@ -57,27 +57,49 @@
   </div>
 
   <script>
-    const nameInput = document.getElementById('name_input').value;
-    const pwdInput = document.getElementById('pwd_input').value;
     const submitBtn = document.getElementById('submit_btn');
     const loginForm = document.getElementById('login_form');
 
     async function signIn() {
-      const res = await fetch( 'http://localhost', 
-        {
-          method: "POST",
-          headers: {
-            "Content-Type" : "application /json"  
-          },
-          body: JSON.stringify({
-            nameInput, pwdInput
-          })
-        }
-      )
+      
     }
 
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
+      const user = document.getElementById('name_input').value;
+      const pwd = document.getElementById('pwd_input').value;
+
       e.preventDefault();
+
+      try {
+        const response = await fetch( 'http://localhost:3500/register', 
+          {
+            method: "POST",
+            headers: {
+              "Content-Type" : "application/json"  
+            },
+            credentials: 'include',
+            body: JSON.stringify({ user, pwd })
+          }
+        );
+
+        if(!response.ok) {
+          if (response.status === 401) {
+            console.log('token expires');
+            return;
+          }
+
+          throw new Error(`${response.status} ${response.statusText}`)
+        }
+
+        const data = await response.json();
+
+        console.log(data);
+        
+
+        return data;
+      } catch (err) {
+        console.log(err);
+      }
     })
   </script>
 </body>
